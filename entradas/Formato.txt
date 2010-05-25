@@ -1,0 +1,9 @@
+The format of these data files is:
+number of planes (p), freeze time
+for each plane i (i=1,...,p):
+   appearance time, earliest landing time, target landing time,
+   latest landing time, penalty cost per unit of time for landing
+   before target, penalty cost per unit of time for landing
+   after target
+   for each plane j (j=1,...p): separation time required after 
+                                i lands before j can land
