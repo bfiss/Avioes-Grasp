@@ -5,9 +5,9 @@
 #include "include\glpk.h"
 
 #define AUX_SIZE 100
-#define MAXSIZE 100
+#define MAXSIZE 55
 #define POSWEIGHT 10.
-#define ALPHA 1.25
+#define ALPHA 1.25 /* must be received through the command line */
 
 #define SEED 0xDEAD
 
@@ -27,6 +27,8 @@ typedef struct {
 
 Plane planes[MAXSIZE];
 
+void readInput();
+
 /* Creates a solution in a greedy randomized way */
 int createSolution( int solution[], int time[], int pos );
 
@@ -41,39 +43,75 @@ void addSeparationConstraint(glp_prob * Prob, int plane1, int plane2);
 				&ij + &ji = 1*/
 void addOrderConstraint(glp_prob * Prob, int plane1, int plane2);
 
+int compIdealT ( const void *, const void * );
+
 int main(void) {
 	int i,j;
 	
 	srand(SEED);
-	/* Read input */
+
+	readInput();
+
+	/* Order planes according to their ideal times */
+	//qsort (planes, n, sizeof(Plane), compIdealT);
 	
-	/* Order planes according to ideal time */
-	
+	/* Initiate positions */
+	for( i = 0 ; i < n ; ++i )
+		planes[i].pos = i;
+
 	/* Create lp instance */
 	glp_prob * Prob;
 	Prob = glp_create_prob();
 	glp_set_prob_name(Prob, "Airplane Landing Problem");
 	glp_set_obj_name(Prob, "Cost");
 	
+	/* Create basic constraints */
 	for( i = 0 ; i < n ; ++i ) {
         addBasicRestriction(Prob,i);
 	}
 	
 	glp_create_index(Prob);
 	
+	/* Create separation constraints and order variables (&ij) if necessary */
 	for( i = 0 ; i < n ; ++i ) {
 		for( j = i+1 ; j < n ; ++j ) {
-			if( planes[i].latest >= planes[j].earliest ||
+			if( planes[i].latest >= planes[j].earliest &&
 			    planes[j].latest >= planes[i].earliest ) {
                 addOrderConstraint(Prob,i,j);
-			} else if ( planes[i].latest + planes[i].sep[j] < planes[j].earliest ) {
+			} else if ( planes[i].latest < planes[j].earliest &&
+						planes[i].latest + planes[i].sep[j] >= planes[j].earliest ) {
                 addSeparationConstraint(Prob, i, j);
-			} else {
+			} else if ( planes[j].latest < planes[i].earliest &&
+						planes[j].latest + planes[j].sep[i] >= planes[i].earliest ) {
                 addSeparationConstraint(Prob, j, i);
 			}
 		}
 	}
+
+	/* Write problem in MPS format so glpsol can (try to) solve it */
+	glp_write_mps(Prob, GLP_MPS_FILE, NULL,"mpsProblem.txt");
+	
+	system("Pause");
 	return 0;
+}
+
+void readInput() {
+	int i,j;
+	
+	scanf("%i",&n);
+	scanf("%i",&i);
+	for( i = 0 ; i < n ; ++i ) {
+		scanf("%i",&j);
+		scanf("%i",&(planes[i].earliest));
+		if( j > planes[i].earliest )
+		    planes[i].earliest = j;
+		scanf("%i",&(planes[i].ideal));
+		scanf("%i",&(planes[i].latest));
+		scanf("%lf",&(planes[i].costE));
+		scanf("%lf",&(planes[i].costL));
+		for( j = 0 ; j < n ; ++j )
+	        scanf("%i",&(planes[i].sep[j]));
+	}
 }
 
 /* Creates a solution in a greedy randomized way */
@@ -169,7 +207,7 @@ tryAgain:
 
 /* Restriction bci = ai - bi + xi = Ti and z += ai*Ei + bi*Li */
 void addBasicRestriction(glp_prob * Prob, int plane) {
-    int cardinal, constr[4], i = plane;
+    int cardinal, constr[4], i = plane, cardRow;
 	double cValues[4];
 	char buf[AUX_SIZE];
 
@@ -187,19 +225,22 @@ void addBasicRestriction(glp_prob * Prob, int plane) {
 	
 	sprintf(buf,"x%i",i);
 	glp_set_col_name(Prob, cardinal+2, buf);
-	glp_set_col_bnds(Prob, cardinal+2, GLP_LO, 0, 0);
+	if( planes[i].earliest == planes[i].latest )
+	    glp_set_col_bnds(Prob, cardinal+2, GLP_FX, planes[i].earliest, 0);
+	else
+		glp_set_col_bnds(Prob, cardinal+2, GLP_DB, planes[i].earliest, planes[i].latest);
 	
-    glp_add_rows(Prob, 1);
+    cardRow = glp_add_rows(Prob, 1);
     
 	sprintf(buf,"bc%i",i);
-	glp_set_row_name(Prob, cardinal+3, buf);
-	glp_set_row_bnds(Prob, cardinal+3, GLP_FX, planes[i].ideal, 0);
+	glp_set_row_name(Prob, cardRow, buf);
+	glp_set_row_bnds(Prob, cardRow, GLP_FX, planes[i].ideal, 0);
 	
 	constr[3] = 1 + (constr[2] = 1 + (constr[1] = cardinal));
 	cValues[3] = cValues[1] = 1;
 	cValues[2] = -1;
 	
-	glp_set_mat_row(Prob, cardinal+3, 3, constr, cValues);
+	glp_set_mat_row(Prob, cardRow, 3, constr, cValues);
 }
 
 /* Restriction xj - xi >= Sij */
@@ -210,15 +251,15 @@ void addSeparationConstraint(glp_prob * Prob, int plane1, int plane2) {
 	
     cardinal = glp_add_rows(Prob, 1);
     
-	sprintf(buf,"S%i%i",i,j);
+	sprintf(buf,"S%i,%i",i,j);
 	glp_set_row_name(Prob, cardinal, buf);
 	glp_set_row_bnds(Prob, cardinal, GLP_LO, planes[i].sep[j], 0);
 	
 	sprintf(buf,"x%i",j);
-	constr[1] = glp_find_row(Prob, buf);
+	constr[1] = glp_find_col(Prob, buf);
 	
 	sprintf(buf,"x%i",i);
-	constr[2] = glp_find_row(Prob, buf);
+	constr[2] = glp_find_col(Prob, buf);
 	
 	cValues[1] = 1;
 	cValues[2] = -1;
@@ -236,23 +277,23 @@ void addOrderConstraint(glp_prob * Prob, int plane1, int plane2) {
 	int xi, xj, uij;
 	
 	sprintf(buf,"x%i",i);
-	xi = glp_find_row(Prob, buf);
+	xi = glp_find_col(Prob, buf);
     sprintf(buf,"x%i",j);
-	xj = glp_find_row(Prob, buf);
+	xj = glp_find_col(Prob, buf);
 	
 	uij = glp_add_cols(Prob, 2);
 	
-	sprintf(buf,"u%i%i",i,j);
+	sprintf(buf,"u%i,%i",i,j);
 	glp_set_col_name(Prob, uij, buf);
     glp_set_col_kind(Prob, uij, GLP_BV);
     
-	sprintf(buf,"u%i%i",j,i);
+	sprintf(buf,"u%i,%i",j,i);
 	glp_set_col_name(Prob, uij+1, buf);
     glp_set_col_kind(Prob, uij+1, GLP_BV);
     
 	cardinal = glp_add_rows(Prob, 2);
 	
-	sprintf(buf,"S%i%i",i,j);
+	sprintf(buf,"S%i,%i",i,j);
 	glp_set_row_name(Prob, cardinal, buf);
 	glp_set_row_bnds(Prob, cardinal, GLP_LO, 0, 0);
 	
@@ -263,11 +304,11 @@ void addOrderConstraint(glp_prob * Prob, int plane1, int plane2) {
 	cValues[1] = 1;
 	cValues[2] = -1;
 	cValues[3] = -planes[i].sep[j];
-	cValues[4] = planes[i].latest - planes[j].latest;
+	cValues[4] = planes[i].latest - planes[j].earliest;
 	
 	glp_set_mat_row(Prob, cardinal, 4, constr, cValues);
 	
-	sprintf(buf,"S%i%i",j,i);
+	sprintf(buf,"S%i,%i",j,i);
 	glp_set_row_name(Prob, cardinal+1, buf);
 	glp_set_row_bnds(Prob, cardinal+1, GLP_LO, 0, 0);
 	
@@ -278,20 +319,24 @@ void addOrderConstraint(glp_prob * Prob, int plane1, int plane2) {
 	cValues[1] = 1;
 	cValues[2] = -1;
 	cValues[3] = -planes[j].sep[i];
-	cValues[4] = planes[j].latest - planes[i].latest;
+	cValues[4] = planes[j].latest - planes[i].earliest;
 	
 	glp_set_mat_row(Prob, cardinal+1, 4, constr, cValues);
 	
 	cardinal = glp_add_rows(Prob, 1);
 
-	sprintf(buf,"E%i%i",i,j);
+	sprintf(buf,"E%i,%i",i,j);
 	glp_set_row_name(Prob, cardinal, buf);
 	glp_set_row_bnds(Prob, cardinal, GLP_FX, 1, 0);
 	
 	constr[1] = uij;
 	constr[2] = uij+1;
 	cValues[1] = 1;
-	cValues[2] = -1;
+	cValues[2] = 1;
 	
 	glp_set_mat_row(Prob, cardinal, 2, constr, cValues);
+}
+
+int compIdealT ( const void * f, const void * s ) {
+	return ((Plane *)f)->ideal - ((Plane *)s)->ideal;
 }
