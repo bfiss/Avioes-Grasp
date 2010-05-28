@@ -1,18 +1,18 @@
 # Project: Avioes
 # Makefile created by Dev-C++ 4.9.9.2
 
-CPP  = g++.exe
-CC   = gcc.exe
+CPP  = g++.exe -D__DEBUG__
+CC   = gcc.exe -D__DEBUG__
 WINDRES = windres.exe
 RES  = 
 OBJ  = avioes.o $(RES)
 LINKOBJ  = avioes.o $(RES)
-LIBS =  -L"lib" -Llib/ -lglpk  
+LIBS =  -L"lib" -Llib/ -lglpk  -g3 
 INCS =  -I"include" 
 CXXINCS =  -I"include" 
 BIN  = Avioes.exe
-CXXFLAGS = $(CXXINCS)  
-CFLAGS = $(INCS)  
+CXXFLAGS = $(CXXINCS)   -g3
+CFLAGS = $(INCS)   -g3
 RM = rm -f
 
 .PHONY: all all-before all-after clean clean-custom

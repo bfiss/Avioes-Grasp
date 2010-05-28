@@ -2,14 +2,17 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <float.h>
+#include <time.h>
 #include "include\glpk.h"
 
-#define AUX_SIZE 100
+#define AUXSIZE 20
 #define MAXSIZE 55
-#define POSWEIGHT 10.
-#define ALPHA 1.25 /* must be received through the command line */
 
 #define SEED 0xDEAD
+
+FILE * outFile;
+/* GRASP parameters */
+int alpha, maxAlpha, maxIter, maxTime, randomSeed;
 
 /* Number of planes */
 int n;
@@ -25,12 +28,26 @@ typedef struct {
 	int pos;
 } Plane;
 
-Plane planes[MAXSIZE];
+/* Auxiliary structure to sort planes by their ideal times */
+struct planeOrder {
+	int ideal;
+	int pos;
+};
 
-void readInput();
+Plane planes[MAXSIZE];
+struct planeOrder pOrd[MAXSIZE];
+
+void leave(char * name);
+
+void readInput(FILE * in);
+
+void printResult(glp_prob * Prob, FILE * out);
 
 /* Creates a solution in a greedy randomized way */
 int createSolution( int solution[], int time[], int pos );
+
+/* Maps the order of planes in solution to a list of constraints &ij */
+void mapSolution(glp_prob * Prob, int solution[]);
 
 /* Restriction bci = ai - bi + xi = Ti and z += ai*Ei + bi*Li */
 void addBasicRestriction(glp_prob * Prob, int plane);
@@ -43,21 +60,54 @@ void addSeparationConstraint(glp_prob * Prob, int plane1, int plane2);
 				&ij + &ji = 1*/
 void addOrderConstraint(glp_prob * Prob, int plane1, int plane2);
 
+/* Swap the arrival of two adjacent planes */
+void swapConstraint(glp_prob * Prob, int i, int solution[], int back);
+
 int compIdealT ( const void *, const void * );
 
-int main(void) {
+int main(int argc, char * argv[]) {
 	int i,j;
 	
 	srand(SEED);
 
-	readInput();
-
-	/* Order planes according to their ideal times */
-	//qsort (planes, n, sizeof(Plane), compIdealT);
+	readInput(stdin);
+	
+	/* Default values */
+    outFile = stdout;
+	maxAlpha = 2;
+	maxIter = 100;
+	maxTime = 30;
+	randomSeed = SEED;
+	/* Read arguments */
+	if( argc > 6 )
+		argc = 6;
+	switch(argc) {
+	case 6:
+		if( !(randomSeed = atoi(argv[5])) )
+			leave(argv[0]);
+	case 5:
+		if( !(maxTime = atoi(argv[4])) )
+			leave(argv[0]);
+	case 4:
+		if( !(maxIter = atoi(argv[3])) )
+			leave(argv[0]);
+	case 3:
+		if( !(maxAlpha = atoi(argv[2])) )
+			leave(argv[0]);
+	case 2:
+		if( !(outFile = fopen(argv[1],"w")) )
+			leave(argv[0]);
+	}
 	
 	/* Initiate positions */
-	for( i = 0 ; i < n ; ++i )
-		planes[i].pos = i;
+	for( i = 0 ; i < n ; ++i ) {
+   		pOrd[i].ideal = planes[i].ideal;
+  		pOrd[i].pos = i;
+	}
+	qsort (pOrd, n, sizeof(struct planeOrder), compIdealT);
+	for( i = 0 ; i < n ; ++i ) {
+  		planes[pOrd[i].pos].pos = i;
+	}
 
 	/* Create lp instance */
 	glp_prob * Prob;
@@ -91,26 +141,132 @@ int main(void) {
 	/* Write problem in MPS format so glpsol can (try to) solve it */
 	glp_write_mps(Prob, GLP_MPS_FILE, NULL,"mpsProblem.txt");
 	
-	system("Pause");
+	glp_delete_index(Prob);
+	glp_create_index(Prob);
+	
+	/* GRASP */
+	
+	/* Data to handle glp solving, time checking and solution generating */
+	glp_smcp * param = malloc(sizeof(glp_smcp));
+	glp_init_smcp(param);
+	param->msg_lev = GLP_MSG_ERR;
+	int solution[MAXSIZE], timeAux[MAXSIZE], t;
+	double currResult = DBL_MAX, bestResult = DBL_MAX;
+	alpha = 0;
+	time_t start, curr;
+	time(&start);
+	
+	for( t = 0 ; t < maxIter ; ++t ) {
+		/* Greedy solution generation */
+		while(createSolution(solution,timeAux,0))
+			alpha = n;
+		
+		/* Building the right constraints */
+		mapSolution(Prob,solution);
+		
+		/* Solving with glpsol */
+		param->presolve = GLP_ON;
+		glp_simplex(Prob,param);
+		param->presolve = GLP_OFF;
+		currResult = glp_get_obj_val(Prob);
+		
+		/* Local search using the first increase */
+		for( i = 0 ; i < n-1 ; ++i ) {
+
+			/* Swap two adjacent planes */
+			swapConstraint(Prob,i,solution,0);
+			glp_simplex(Prob,param);
+			
+			/* Check for improvements */
+			if( GLP_OPT == glp_get_status(Prob) && glp_get_obj_val(Prob) < currResult ) {
+				
+				currResult = glp_get_obj_val(Prob);
+				
+				/* Changing the solution */
+				int swp;
+				swp = solution[i];
+				solution[i] = solution[i+1];
+				solution[i+1] = swp;
+				
+				/* Restarting */
+				i = -1;
+			} else
+				swapConstraint(Prob,i,solution,1);
+		}
+		
+		/* Checking improvements */
+		if( bestResult > currResult ) {
+		    bestResult = currResult;
+		    for( i = 0 ; i < n ; ++i )
+				planes[solution[i]].pos = i;
+		}
+		
+		/* Choosing alpha */
+		alpha = rand()%(maxAlpha+1);
+		
+		/* Is our time up? */
+		time(&curr);
+		if( difftime(curr,start) > maxTime )
+		    break;
+	}
+	
+	/* Print Answer */
+	printResult(Prob, stdout);
+	if( outFile ) {
+		printResult(Prob, outFile);
+		fclose(outFile);
+	}
+
 	return 0;
 }
 
-void readInput() {
+void leave(char * name) {
+	printf("Usage: %s [output_file [maximum_alpha [iteration_limit [time_limit [random_seed]]]]]\n",name);
+	exit(1);
+}
+
+void readInput(FILE * in) {
 	int i,j;
 	
-	scanf("%i",&n);
-	scanf("%i",&i);
+	fscanf(in,"%i",&n);
+	fscanf(in,"%i",&i);
 	for( i = 0 ; i < n ; ++i ) {
-		scanf("%i",&j);
-		scanf("%i",&(planes[i].earliest));
+		fscanf(in,"%i",&j);
+		fscanf(in,"%i",&(planes[i].earliest));
 		if( j > planes[i].earliest )
 		    planes[i].earliest = j;
-		scanf("%i",&(planes[i].ideal));
-		scanf("%i",&(planes[i].latest));
-		scanf("%lf",&(planes[i].costE));
-		scanf("%lf",&(planes[i].costL));
+		fscanf(in,"%i",&(planes[i].ideal));
+		fscanf(in,"%i",&(planes[i].latest));
+		fscanf(in,"%lf",&(planes[i].costE));
+		fscanf(in,"%lf",&(planes[i].costL));
 		for( j = 0 ; j < n ; ++j )
-	        scanf("%i",&(planes[i].sep[j]));
+	        fscanf(in,"%i",&(planes[i].sep[j]));
+	}
+}
+
+void printResult(glp_prob * Prob, FILE * out) {
+	int i;
+	char buf[AUXSIZE];
+	glp_smcp * param = malloc(sizeof(glp_smcp));
+	glp_init_smcp(param);
+	param->msg_lev = GLP_MSG_ERR;
+	param->presolve = GLP_ON;
+	int solution[MAXSIZE];
+
+	for( i = 0 ; i < n ; ++i )
+		solution[planes[i].pos] = i;
+
+	mapSolution(Prob,solution);
+	glp_simplex(Prob,param);
+	
+	fprintf(out,"Best found solution's value: %lf\n\n",glp_get_obj_val(Prob));
+	
+	double time;
+	for( i = 0 ; i < n ; ++i ) {
+        sprintf(buf,"x%i",solution[i]);
+		time = glp_get_col_prim(Prob, glp_find_col(Prob, buf));
+		fprintf(out,"The %i-th airplane to arrive is airplane %i, at the time %lf\n",
+		        i+1,solution[i]+1,time);
 	}
 }
 
@@ -157,36 +313,37 @@ int createSolution( int solution[], int time[], int pos ) {
 			}
 			/* Calculate time and cost of arriving the plane now */
 			time[i] = arrival;
-			posDiff = (pos - planes[i].pos)/POSWEIGHT;
+			posDiff = (pos - planes[i].pos);
 			if( posDiff < 0 )
 			    posDiff = -posDiff;
-			if( planes[i].ideal - arrival > 0 )
-				cost[i] = (planes[i].ideal - arrival)*planes[i].costE*(1. + posDiff);
-			else
-			    cost[i] = (planes[i].ideal - arrival)*planes[i].costL;
+			cost[i] = posDiff;
 		}
 
 	/* Find out the best option */
 	double bestOption;
 tryAgain:
-	bestOption = DBL_MAX/(ALPHA*ALPHA);
+	bestOption = DBL_MAX - 2* alpha;
+
 	for( i = 0 ; i < n ; ++i )
-	    if( valid[i] && cost[i] > 0 && bestOption > cost[i] )
+	    if( valid[i] && bestOption > cost[i] )
 			bestOption = cost[i];
 
 	/* Find out the number of options */
 	int numValid;
 	numValid = 0;
 	for( i = 0 ; i < n ; ++i )
-	    if( valid[i] && cost[i] < bestOption * ALPHA )
+	    if( valid[i] && cost[i] <= bestOption + alpha )
 			++numValid;
+
+	if( !numValid )
+	    return 1;
 
 	/* Select an option close or equal to the best */
 	int option, counter;
 	option = rand()%numValid + 1;
 	counter = 0;
 	for( i = 0 ; i < n ; ++i )
-	    if( valid[i] && cost[i] < bestOption * ALPHA )
+	    if( valid[i] && cost[i] <= bestOption + alpha )
 	        if( ++counter == option )
 	            break;
 	solution[pos] = i;
@@ -205,11 +362,30 @@ tryAgain:
 	return 0;
 }
 
+/* Maps the order of planes in solution to a list of constraints &ij */
+void mapSolution(glp_prob * Prob, int solution[]) {
+	int i,j;
+	char buf[AUXSIZE];
+	
+	int uij;
+	for( i = 0 ; i < n ; ++i )
+		for( j = i+1 ; j < n ; ++j ) {
+			sprintf(buf,"u%i,%i",solution[i],solution[j]);
+			if( (uij = glp_find_col(Prob, buf)) ) {
+                glp_set_col_bnds(Prob, uij, GLP_FX, 1, 1);
+                glp_set_col_kind(Prob, uij, GLP_CV);
+                sprintf(buf,"u%i,%i",solution[j],solution[i]);
+				glp_set_col_bnds(Prob, uij=glp_find_col(Prob, buf), GLP_FX, 0, 0);
+                glp_set_col_kind(Prob, uij, GLP_CV);
+			}
+		}
+}
+
 /* Restriction bci = ai - bi + xi = Ti and z += ai*Ei + bi*Li */
 void addBasicRestriction(glp_prob * Prob, int plane) {
     int cardinal, constr[4], i = plane, cardRow;
 	double cValues[4];
-	char buf[AUX_SIZE];
+	char buf[AUXSIZE];
 
 	cardinal = glp_add_cols(Prob, 3);
 	
@@ -247,7 +423,7 @@ void addBasicRestriction(glp_prob * Prob, int plane) {
 void addSeparationConstraint(glp_prob * Prob, int plane1, int plane2) {
     int cardinal, constr[3], i = plane1, j = plane2;
 	double cValues[3];
-	char buf[AUX_SIZE];
+	char buf[AUXSIZE];
 	
     cardinal = glp_add_rows(Prob, 1);
     
@@ -273,7 +449,7 @@ void addSeparationConstraint(glp_prob * Prob, int plane1, int plane2) {
 void addOrderConstraint(glp_prob * Prob, int plane1, int plane2) {
     int cardinal, constr[3], i = plane1, j = plane2;
 	double cValues[3];
-	char buf[AUX_SIZE];
+	char buf[AUXSIZE];
 	int xi, xj, uij;
 	
 	sprintf(buf,"x%i",i);
@@ -337,6 +513,30 @@ void addOrderConstraint(glp_prob * Prob, int plane1, int plane2) {
 	glp_set_mat_row(Prob, cardinal, 2, constr, cValues);
 }
 
+/* Swap the arrival of two adjacent planes */
+void swapConstraint(glp_prob * Prob, int i, int solution[], int back) {
+	int t,j;
+	static char firstTime = 1;
+	static int u[MAXSIZE][MAXSIZE];
+	char buf[AUXSIZE];
+	
+	if( firstTime ) {
+		firstTime = 0;
+		for( t = 0 ; t < n ; ++t )
+		    for( j = i+1 ; j < n ; ++j ) {
+            	sprintf(buf,"u%i,%i",t,j);
+            	u[t][j] = glp_find_col(Prob, buf);
+            	sprintf(buf,"u%i,%i",j,t);
+            	u[j][t] = glp_find_col(Prob, buf);
+			}
+	}
+	
+	if( u[solution[i]][solution[i+1]] ) {
+    	glp_set_col_bnds(Prob, u[solution[i]][solution[i+1]], GLP_FX, back, 0);
+    	glp_set_col_bnds(Prob, u[solution[i+1]][solution[i]], GLP_FX, !back, 0);
+	}
+}
+
 int compIdealT ( const void * f, const void * s ) {
-	return ((Plane *)f)->ideal - ((Plane *)s)->ideal;
+	return ((struct planeOrder *)f)->ideal - ((struct planeOrder *)s)->ideal;
 }
