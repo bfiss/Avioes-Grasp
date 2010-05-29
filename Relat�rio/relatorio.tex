@@ -1,0 +1,197 @@
+\documentclass[a4paper,10pt]{abnt} %
+\usepackage[utf8x]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim, amssymb, latexsym, amsmath, mathrsfs}
+\usepackage{url}
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{framed}
+\usepackage{array}
+\usepackage{float}
+\usepackage[section] {placeins}
+\usepackage[table]{xcolor}
+\usepackage{tipa}
+\usepackage{listings}
+
+\newcommand{\minimize}{
+  \iflanguage{portuges}{minimiza}{}%
+  \iflanguage{english}{minimize}{}%
+  \iflanguage{german}{minimiere}{}%
+}
+\newcommand{\maximize}{
+  \iflanguage{portuges}{maximiza}{}%
+  \iflanguage{english}{maximize}{}%
+  \iflanguage{german}{maximiere}{}%
+}
+\newcommand{\mexists}{
+  \iflanguage{portuges}{existe}{}%
+  \iflanguage{english}{exists}{}%
+  \iflanguage{german}{existiert}{}%
+}
+\newcommand{\subjectto}{
+  \iflanguage{portuges}{sujeito a}{}%
+  \iflanguage{english}{subject to}{}%
+  \iflanguage{german}{so dass}{}%
+}
+\makeatletter
+\newcommand{\minproblem}{\@ifstar\minproblemstar\minproblemplain}
+\newcommand{\minproblemplain}[2]{
+  \begin{align}
+    \textbf{\minimize}\qquad & #1\\
+    \textbf{\subjectto}\qquad & #2
+  \end{align}
+}
+\newcommand{\minproblemstar}[2]{
+  \begin{align*}
+    \textbf{\minimize}\qquad & #1\\
+    \textbf{\subjectto}\qquad & #2
+  \end{align*}
+}
+\newcommand{\maxproblem}{\@ifstar\maxproblemstar\maxproblemplain}
+\newcommand{\maxproblemplain}[2]{
+  \begin{align}
+    \textbf{\maximize}\qquad & #1\\
+    \textbf{\subjectto}\qquad & #2
+  \end{align}
+}
+\newcommand{\maxproblemstar}[2]{
+  \begin{align*}
+    \textbf{\maximize}\qquad & #1\\
+    \textbf{\subjectto}\qquad & #2
+  \end{align*}
+}
+\newcommand{\existsproblem}{\@ifstar\existsproblemstar\existsproblemplain}
+\newcommand{\existsproblemplain}[2]{
+  \begin{align}
+    \textbf{\mexists}\qquad & #1\\
+    \textbf{\subjectto}\qquad & #2
+  \end{align}
+}
+\newcommand{\existsproblemstar}[2]{
+  \begin{align*}
+    \textbf{\mexists}\qquad & #1\\
+    \textbf{\subjectto}\qquad & #2
+  \end{align*}
+}
+\makeatother
+
+\lstset{tabsize=2}
+\newcommand{\bl}{\begin{lstlisting}}
+%\newcommand{\el}{\end{lstlisting}}
+
+\autor{Bruno Coswig Fiss \\ Kauê Soares da Silveira} %\and
+\instituicao{Universidade Federal do Rio Grande do Sul}
+\orientador[Professor:]{Marcus Rolf Peter Ritt}
+\titulo{GRASP aplicado ao problema de aterrissagem de aviões}
+\comentario{INF05010 – Otimização Combinatória}
+\data{1º de julho de 2010}
+
+\begin{document}
+
+%\maketitle
+\folhaderosto
+\sumario
+%\listadetabelas
+%\listadefiguras
+
+%\begin{abstract}
+%\begin{resumo}
+%\end{abstract}
+%\end{resumo}
+
+\chapter{Descrição do problema}
+
+\section{Descrição formal}
+
+O problema de aterrissagem de aviões consiste em definir um momento no tempo para a aterrissagem de cada avião $ i \in P $, sendo $P$ o conjunto de aviões. Cada avião possui os seguintes dados:
+
+$ E_i$: Momento mais prematuro em que o avião i pode realizar pouso.
+
+$T_i$: Momento ideal para pouso do avião i.
+
+$L_i$: Momento mais tardio em que o avião i pode realizar pouso.
+
+$g_i$: Penalidade por unidade de tempo da diferença do pouso para o tempo ideal se o avião chegar mais cedo do que o ideal.
+
+$h_i$: Penalidade por unidade de tempo da diferença do pouso para o tempo ideal se o avião chegar mais tarde do que o ideal.
+
+$S_{ij}$: Distância de tempo requerida após o pouso do avião i para que o avião j possa pousar.
+
+O objetivo é encontrar uma solução com somatório de todas as penalidades mais baixo possivel.
+
+\section{Formulação como um programa inteiro}
+
+O seguinte programa inteiro descreve o problema acima descrito:
+
+\minproblemstar{\sum_{i \in P } g_i  \alpha_i + h_i \beta_i}
+                         {   x_i = - \alpha_i + \beta_i + T_i , & \forall i \in P \\
+                         &  E_i \le x_i \le L_i, & \forall i \in P \\ 
+                         &  x_j - x_i \ge S_{ij}\delta_{ij} + (E_j - L_i)\delta_{ji}, & \forall i,j \in P \\
+		 &  \delta_{ij} + \delta_{ji} = 1, & \forall i,j \in P \\
+                         &  x_i \ge 0, x_i \in \mathbb{R}, & \forall i \in P \\
+                         &  \alpha_i \ge 0, \alpha_i \in \mathbb{R}, & \forall i \in P \\
+                         &  \beta_i \ge 0, \beta_i \in \mathbb{R}, & \forall i \in P \\
+                         &  \delta_{ij} \in \mathbb{B}, & \forall i,j \in P}
+
+A variável $x_i$ representa o momento da aterrissagem do avião $i$. As variáveis $\alpha_i$ e $\beta_i$ indicam a diferença para menos ou mais, respectivamente, do momento da aterrissagem para o momento ideal de aterrissagem do avião $i$. $\delta_{ij}$ é uma variável binária que indica se o avião $i$ aterrisa antes do avião $j$.
+
+A formulação do programa inteiro foi realizada pelos autores antes da leitura de artigos relacionados com o problema, que por sua vez continham uma formulção similar. Para facilitar a compreensão, tornamos a simbologia utilizada por nós semelhante à utilizada nesses artigos \cite{768657,din}.
+
+\section{Representação de um solução}
+
+O programa inteiro que descreve o problema aqui tratado é misto, possuindo variáveis reais além de inteiras. Como o objetivo desse trabalho é aplicar uma meta-heurística a um problema inteiro, separamos a solução em duas partes, uma inteira e outra real.
+
+A parte inteira da solução é a que contém as variáveis $\delta_{ij}$, que descrevem, em conjunto, a ordem de chegada dos aviões. O caminho inverso também é válido, ou seja, uma determinada ordem de chegada dos aviões descreve completamente as variáveis $\delta_{ij}$. Já a parte linear são as demais variáveis.
+
+Portanto, representaremos uma solução como uma sequência de aviões que descreve a ordem de chegada desses. Após obter a solução inteira do problema, basta resolver o programa linear restante para obter a solução completa do problema.
+
+\chapter{Algoritmo proposto}
+
+\section{Idéia geral}
+
+Nosso algoritmo utiliza a biblioteca GLPK (GNU linear programming kit) para resolução das partes lineares do problema sendo tratado.
+
+Primeiramente, definimos o problema inteiro utilizando os dados lidos da entrada e as funções para criação de restrições disponibilizadas pela biblioteca GLPK. Após esse passo é possível utilizar o resolvedor interno do GLPK para resolver o problema inteiro, utilizando o método branch-and-cut. Essa característica foi requisitada na especificação do trabalho da disciplina, e também permite a comparação entre as soluções atingidas pelo algoritmo do GLPK e pelo método GRASP, além da comparação entre o desempenho na obtenção dessas.
+
+Após isso, utilizamos a meta-heurística GRASP para criar soluções para a parte inteira do problema, ou seja, sequências de aviões que definem a ordem de chegada desses. Para cada solução inteira, modificamos as restrições do problema inteiro criado no primeiro passo de forma que ele respeite a ordem presente na sequência e torne-se, por consequência, linear. Cada programa linear gerado é então resolvido através do método simplex utilizando uma rotina da biblioteca GLPK.
+
+Isso é feito para cada solução inteira gerada pelo método GRASP, tanto para as soluções geradas durante a construção gulosa aleatória quanto para as soluções geradas na busca local (soluções vizinhas da solução atual). A melhor solução encontrada é armazenada e impressa ao fim do algoritmo.
+
+\section{GRASP}
+
+\subsection{Criação de soluções}
+
+%f(c), alpha reativo, possivelmente reactive GRASP.
+%dedução dos uij pela solução criada
+%citar o artigo sobre GRASP
+
+
+
+\cite{Resende02greedyrandomized}.
+
+\subsection{Vizinhança e busca local}
+
+%definição de vizinhança. busca local de primeiro incremento
+
+\chapter{Experimentos}
+
+\section{Configurações}
+
+%como foram realizados, e que parâmetros foram testados.
+
+\section{Resultados}
+
+%tabela com resultados
+
+\section{Análise}
+
+%porque tivemos esses resultados
+
+\bibliography{relatorio}{}
+\bibliographystyle{plain}
+
+\end{document}
+

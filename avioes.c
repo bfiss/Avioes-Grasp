@@ -12,7 +12,10 @@
 
 FILE * outFile;
 /* GRASP parameters */
-int alpha, maxAlpha, maxIter, maxTime, randomSeed;
+int alpha, maxAlpha, maxIter, maxTime, randomSeed, simpleOutput;
+
+/* Time control */
+time_t initial, final;
 
 /* Number of planes */
 int n;
@@ -67,10 +70,10 @@ int compIdealT ( const void *, const void * );
 
 int main(int argc, char * argv[]) {
 	int i,j;
+
+	time(&initial);
 	
 	srand(SEED);
-
-	readInput(stdin);
 	
 	/* Default values */
     outFile = stdout;
@@ -78,10 +81,13 @@ int main(int argc, char * argv[]) {
 	maxIter = 100;
 	maxTime = 30;
 	randomSeed = SEED;
+	simpleOutput = 0;
 	/* Read arguments */
-	if( argc > 6 )
-		argc = 6;
+	if( argc > 7 )
+		argc = 7;
 	switch(argc) {
+	case 7:
+		simpleOutput = atoi(argv[6]);
 	case 6:
 		if( !(randomSeed = atoi(argv[5])) )
 			leave(argv[0]);
@@ -95,9 +101,16 @@ int main(int argc, char * argv[]) {
 		if( !(maxAlpha = atoi(argv[2])) )
 			leave(argv[0]);
 	case 2:
+		if( simpleOutput ) {
+            if( !(outFile = fopen(argv[1],"a")) )
+				leave(argv[0]);
+			break;
+		}
 		if( !(outFile = fopen(argv[1],"w")) )
 			leave(argv[0]);
 	}
+	
+	readInput(stdin);
 	
 	/* Initiate positions */
 	for( i = 0 ; i < n ; ++i ) {
@@ -221,7 +234,7 @@ int main(int argc, char * argv[]) {
 }
 
 void leave(char * name) {
-	printf("Usage: %s [output_file [maximum_alpha [iteration_limit [time_limit [random_seed]]]]]\n",name);
+	printf("Usage: %s [output_file [maximum_alpha [iteration_limit [time_limit [random_seed [restrict_output]]]]]]\n",name);
 	exit(1);
 }
 
@@ -258,6 +271,12 @@ void printResult(glp_prob * Prob, FILE * out) {
 
 	mapSolution(Prob,solution);
 	glp_simplex(Prob,param);
+	
+	if( simpleOutput ) {
+		time(&final);
+		fprintf(out,"%lf %lf\n",glp_get_obj_val(Prob),difftime(final,initial));
+		return;
+	}
 	
 	fprintf(out,"Best found solution's value: %lf\n\n",glp_get_obj_val(Prob));
 	

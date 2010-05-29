@@ -1,0 +1,619 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2010.5.28)  29 MAY 2010 19:13
+entering extended mode
+**C:/Users/Bruno/Desktop/Trabalhos/Avioes-Grasp/Relatório/relatorio.tex
+(C:/Users/Bruno/Desktop/Trabalhos/Avioes-Grasp/Relatório/relatorio.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman, ngerman, german-x-2009-06-19, ngerman-x-2009-06-19, french, portuguese, l
+oaded.
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\abnt.cls"
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\cvs-id.def")
+Document Class: abnt 2006/09/09 v1.32 Classe abnt (NBR6024, NBR6027, NBR6028, N
+BR14724)
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\ifthen.sty"
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\tools\calc.sty"
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count79
+\calc@Bcount=\count80
+\calc@Adimen=\dimen102
+\calc@Bdimen=\dimen103
+\calc@Askip=\skip41
+\calc@Bskip=\skip42
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
+\calc@Ccount=\count81
+\calc@Cskip=\skip43
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\tools\multicol.sty"
+Package: multicol 2008/12/05 v1.6h multicolumn formatting (FMi)
+\c@tracingmulticols=\count82
+\mult@box=\box26
+\multicol@leftmargin=\dimen104
+\c@unbalance=\count83
+\c@collectmore=\count84
+\doublecol@number=\count85
+\multicoltolerance=\count86
+\multicolpretolerance=\count87
+\full@width=\dimen105
+\page@free=\dimen106
+\premulticols=\dimen107
+\postmulticols=\dimen108
+\multicolsep=\skip44
+\multicolbaselineskip=\skip45
+\partial@page=\box27
+\last@line=\box28
+\mult@rightbox=\box29
+\mult@grightbox=\box30
+\mult@gfirstbox=\box31
+\mult@firstbox=\box32
+\@tempa=\box33
+\@tempa=\box34
+\@tempa=\box35
+\@tempa=\box36
+\@tempa=\box37
+\@tempa=\box38
+\@tempa=\box39
+\@tempa=\box40
+\@tempa=\box41
+\@tempa=\box42
+\@tempa=\box43
+\@tempa=\box44
+\@tempa=\box45
+\@tempa=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\c@columnbadness=\count88
+\c@finalcolumnbadness=\count89
+\last@try=\dimen109
+\multicolovershoot=\dimen110
+\multicolundershoot=\dimen111
+\mult@nat@firstbox=\box50
+\colbreak@box=\box51
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\abntex-abrev.sty"
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\cvs-id.def")
+Package: abntex-abrev 2005/11/14 v1.4 Abreviacoes
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\nbr10522-1988.def"
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\cvs-id.def")
+File: nbr10522-1988.def 2003/10/13 v1.2 Abreviacoes bibliograficas (NBR10522:19
+88)
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\abntex-abrev-pt_BR.def"
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\cvs-id.def")
+File: abntex-abrev-pt_BR.def 2005/11/14 v1.3 definicao de abntex-abrev, traduca
+o de termos en_US/pt_BR
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\abntex-text.sty"
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\cvs-id.def")
+Package: abntex-text 2005/11/14 v1.1 abnTeX text replacements
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\abntex-text-pt_BR.def"
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\cvs-id.def")
+File: abntex-text-pt_BR.def 2005/12/21 v1.2 Definicao de nomes em Portugues/Bra
+sil (pt_BR)
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\abntex-default-design.sty"
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\cvs-id.def")
+Package: abntex-default-design 2005/06/22 v1.2 Definicoes de design padrao do a
+bntex
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\ltxmisc\relsize.sty"
+Package: relsize 2003/07/04 ver 3.1
+
+
+Package relsize Warning: Failed to get list of font sizes.
+(relsize)                Falling back to old definition. on input line 81.
+
+)
+\ABNTanapindent=\skip46
+\ABNTsignwidth=\skip47
+\ABNTsignthickness=\skip48
+\ABNTsignskip=\skip49
+) ("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\nbr6027-1989.def")
+("C:\Program Files\MiKTeX 2.8\tex\latex\abntex\nbr14724-2001.def")
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\report.cls"
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\size10.clo"
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count90
+\c@chapter=\count91
+\c@section=\count92
+\c@subsection=\count93
+\c@subsubsection=\count94
+\c@paragraph=\count95
+\c@subparagraph=\count96
+\c@figure=\count97
+\c@table=\count98
+\abovecaptionskip=\skip50
+\belowcaptionskip=\skip51
+\bibindent=\dimen112
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\setspace\setspace.sty"
+Package: setspace 2000/12/01 6.7 Contributed and Supported LaTeX2e package
+
+Package: `setspace' 6.7 <2000/12/01>
+) ("C:\Program Files\MiKTeX 2.8\tex\latex\psnfss\mathptmx.sty"
+Package: mathptmx 2005/04/12 PSNFSS-v9.2a Times w/ Math, improved (SPQR, WaS) 
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Redeclaring symbol font `letters' on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+\symbold=\mathgroup4
+\symitalic=\mathgroup5
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
+LaTeX Info: Redefining \hbar on input line 50.
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\psnfss\helvet.sty"
+Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\tools\indentfirst.sty"
+Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\inputenc.sty"
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\unicode\utf8x.def"
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\unicode\ucs.sty"
+Package: ucs 2004/10/17 UCS: Unicode input support
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\unicode\data\uni-global.def"
+File: uni-global.def 2004/10/17 UCS: Unicode global data
+)
+\uc@secondtry=\count99
+\uc@combtoks=\toks17
+\uc@combtoksb=\toks18
+\uc@temptokena=\toks19
+)
+("C:\Program Files\MiKTeX 2.8\tex\generic\babel\babel.sty"
+Package: babel 2008/07/06 v3.8l The Babel package
+
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files\MiKTeX 2.8\tex\latex\00miktex\bblopts.cfg"
+File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
+)
+("C:\Program Files\MiKTeX 2.8\tex\generic\babel\portuges.ldf"
+Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
+
+("C:\Program Files\MiKTeX 2.8\tex\generic\babel\babel.def"
+File: babel.def 2008/07/06 v3.8l Babel common definitions
+\babel@savecnt=\count100
+\U@D=\dimen113
+)
+\l@brazil = a dialect from \language\l@portuges 
+Package babel Info: Making " an active character on input line 145.
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2010/02/14 v0.04n Graphics/color for pdfTeX
+\Gread@gobject=\count101
+))
+\Gin@req@height=\dimen114
+\Gin@req@width=\dimen115
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\listings\listings.sty"
+\lst@mode=\count102
+\lst@gtempboxa=\box52
+\lst@token=\toks20
+\lst@length=\count103
+\lst@currlwidth=\dimen116
+\lst@column=\count104
+\lst@pos=\count105
+\lst@lostspace=\dimen117
+\lst@width=\dimen118
+\lst@newlines=\count106
+\lst@lineno=\count107
+\lst@maxwidth=\dimen119
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\listings\lstmisc.sty"
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+\c@lstnumber=\count108
+\lst@skipnumbers=\count109
+\lst@framebox=\box53
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\listings\listings.cfg"
+File: listings.cfg 2007/02/22 1.4 listings configuration
+))
+Package: listings 2007/02/22 1.4 (Carsten Heinz)
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\color.sty"
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\dvipsnam.def"
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\tools\verbatim.sty"
+Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks21
+\verbatim@line=\toks22
+\verbatim@in@stream=\read1
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\amsfonts\amssymb.sty"
+Package: amssymb 2009/06/22 v3.00
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\amsfonts\amsfonts.sty"
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\@emptytoks=\toks23
+\symAMSa=\mathgroup6
+\symAMSb=\mathgroup7
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\latexsym.sty"
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup8
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\ams\math\amsmath.sty"
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip52
+
+For additional information on amsmath, use the `?' option.
+("C:\Program Files\MiKTeX 2.8\tex\latex\ams\math\amstext.sty"
+Package: amstext 2000/06/29 v2.01
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\ams\math\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks24
+\ex@=\dimen120
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\ams\math\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen121
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\ams\math\amsopn.sty"
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count110
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count111
+\leftroot@=\count112
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count113
+\DOTSCASE@=\count114
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box54
+\strutbox@=\box55
+\big@size=\dimen122
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count115
+\c@MaxMatrixCols=\count116
+\dotsspace@=\muskip10
+\c@parentequation=\count117
+\dspbrk@lvl=\count118
+\tag@help=\toks25
+\row@=\count119
+\column@=\count120
+\maxfields@=\count121
+\andhelp@=\toks26
+\eqnshift@=\dimen123
+\alignsep@=\dimen124
+\tagshift@=\dimen125
+\tagwidth@=\dimen126
+\totwidth@=\dimen127
+\lineht@=\dimen128
+\@envbody=\toks27
+\multlinegap=\skip53
+\multlinetaggap=\skip54
+\mathdisplay@stack=\toks28
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\jknappen\mathrsfs.sty"
+Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
+\symrsfs=\mathgroup9
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\ltxmisc\url.sty"
+\Urlmuskip=\muskip11
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\subfigure\subfigure.sty"
+Package: subfigure 2002/07/30 v2.1.4 subfigure package
+\subfigtopskip=\skip55
+\subfigcapskip=\skip56
+\subfigcaptopadj=\dimen129
+\subfigbottomskip=\skip57
+\subfigcapmargin=\dimen130
+\subfiglabelskip=\skip58
+\c@subfigure=\count122
+\c@lofdepth=\count123
+\c@subtable=\count124
+\c@lotdepth=\count125
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+("C:\Program Files\MiKTeX 2.8\tex\latex\subfigure\subfigure.cfg")
+\subfig@top=\skip59
+\subfig@bottom=\skip60
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\framed\framed.sty"
+Package: framed 2007/10/04 v 0.95: framed or shaded text with page breaks
+\fb@frw=\dimen131
+\fb@frh=\dimen132
+\FrameRule=\dimen133
+\FrameSep=\dimen134
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\tools\array.sty"
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen135
+\extrarowheight=\dimen136
+\NC@list=\toks29
+\extratabsurround=\skip61
+\backup@length=\skip62
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count126
+\float@exts=\toks30
+\float@box=\box56
+\@float@everytoks=\toks31
+\@floatcapt=\box57
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\placeins\placeins.sty"
+Package: placeins 2005/04/18  v 2.2
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\xcolor\xcolor.sty"
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\colortbl\colortbl.sty"
+Package: colortbl 2001/02/13 v0.1j Color table columns (DPC)
+\everycr=\toks32
+\minrowclearance=\skip63
+)
+LaTeX Info: Redefining \color on input line 702.
+\rownum=\count127
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\tipa\tipa.sty"
+Package: tipa 2002/08/08 TIPA version 1.1
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\fontenc.sty"
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\tipa\t3enc.def"
+File: t3enc.def 2001/12/31 T3 encoding
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 357.
+
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\psnfss\ot1phv.fd"
+File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\ot1enc.def"
+File: ot1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding OT1 on input line 43.
+)))
+(C:\Users\Bruno\Desktop\Trabalhos\Avioes-Grasp\Relatório\relatorio.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 92.
+LaTeX Font Info:    Try loading font information for T3+cmr on input line 92.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\tipa\t3cmr.fd"
+File: t3cmr.fd 2001/12/31 TIPA font definitions
+)
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 92.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\psnfss\ot1ptm.fd"
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\unicode\ucsencs.def"
+File: ucsencs.def 2003/11/29 Fixes to fontencodings LGR, T3
+T3\textscriptg already defined.
+
+fontencoding T3 patched
+) ("C:\Program Files\MiKTeX 2.8\tex\context\base\supp-pdf.tex"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count128
+\scratchdimen=\dimen137
+\scratchbox=\box58
+\nofMPsegments=\count129
+\nofMParguments=\count130
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count131
+\MPscratchDim=\dimen138
+\MPnumerator=\count132
+\everyMPtoPDFconversion=\toks34
+)
+\c@lstlisting=\count133
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 95.
+ ("C:\Program Files\MiKTeX 2.8\tex\latex\unicode\data\uni-0.def"
+File: uni-0.def 2004/10/17 UCS: Unicode data U+0000..U+00FF
+)
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 95
+.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\psnfss\ot1ztmcm.fd"
+File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
+)
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 95
+.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\psnfss\omlztmcm.fd"
+File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
+)
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 95
+.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\psnfss\omsztmcm.fd"
+File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
+)
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 95
+.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\psnfss\omxztmcm.fd"
+File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 95.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 95.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 95.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 95.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\ulasy.fd"
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 95.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\jknappen\ursfs.fd"
+File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17.28> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 95.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <17.28> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 95.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\unicode\data\uni-32.def"
+File: uni-32.def 2004/10/17 UCS: Unicode data U+2000..U+20FF
+) [1
+
+{C:/ProgramData/MiKTeX/2.8/pdftex/config/pdftex.map}]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20.74> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 96.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <20.74> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 96.
+
+(C:\Users\Bruno\Desktop\Trabalhos\Avioes-Grasp\Relatório\relatorio.toc
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 2.
+)
+\tf@toc=\write3
+
+[2
+
+]
+Cap\'{\i }tulo 1.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 107.
+[3
+
+
+] [4]
+Cap\'{\i }tulo 2.
+[5
+
+]
+Cap\'{\i }tulo 3.
+(C:\Users\Bruno\Desktop\Trabalhos\Avioes-Grasp\Relatório\relatorio.bbl [6
+
+])
++-------------------------------------------------------------------+
+| Comentario, sugestao ou critica sobre o abnTeX? Entre em contato: |
+|                  http://abntex.codigolivre.org.br                 |
++-------------------------------------------------------------------+
+[7
+
+] (C:\Users\Bruno\Desktop\Trabalhos\Avioes-Grasp\Relatório\relatorio.aux) ) 
+Here is how much of TeX's memory you used:
+ 7594 strings out of 495257
+ 100387 string characters out of 3179700
+ 163661 words of memory out of 3000000
+ 10594 multiletter control sequences out of 15000+200000
+ 39198 words of font info for 84 fonts, out of 3000000 for 9000
+ 16 hyphenation exceptions out of 8191
+ 41i,12n,41p,860b,622s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/
+Program Files/MiKTeX 2.8/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files/MiKT
+eX 2.8/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.8/f
+onts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.8/fonts/type
+1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/public
+/amsfonts/symbols/msbm10.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/urw/symbo
+l/usyr.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/urw/symbol/usyr.pfb><C:/Pro
+gram Files/MiKTeX 2.8/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX
+ 2.8/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1
+/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/urw/times/utmri8
+a.pfb>
+Output written on relatorio.pdf (7 pages, 100386 bytes).
+PDF statistics:
+ 67 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
