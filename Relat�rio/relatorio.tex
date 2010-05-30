@@ -136,9 +136,9 @@ O seguinte programa inteiro descreve o problema acima descrito:
                          &  \beta_i \ge 0, \beta_i \in \mathbb{R}, & \forall i \in P \\
                          &  \delta_{ij} \in \mathbb{B}, & \forall i,j \in P}
 
-A variável $x_i$ representa o momento da aterrissagem do avião $i$. As variáveis $\alpha_i$ e $\beta_i$ indicam a diferença para menos ou mais, respectivamente, do momento da aterrissagem para o momento ideal de aterrissagem do avião $i$. $\delta_{ij}$ é uma variável binária que indica se o avião $i$ aterrisa antes do avião $j$.
+A variável $x_i$ representa o momento da aterrissagem do avião $i$. As variáveis $\alpha_i$ e $\beta_i$ indicam a diferença para menos ou mais, respectivamente, do momento da aterrissagem para o momento ideal de aterrissagem do avião $i$. $\delta_{ij}$ é uma variável binária que indica se o avião $i$ aterrissa antes do avião $j$.
 
-A formulação do programa inteiro foi realizada pelos autores antes da leitura de artigos relacionados com o problema, que por sua vez continham uma formulção similar. Para facilitar a compreensão, tornamos a simbologia utilizada por nós semelhante à utilizada nesses artigos \cite{768657,din}.
+A formulação do programa inteiro foi realizada pelos autores antes da leitura de artigos relacionados com o problema, que por sua vez continham uma formulação similar. Para facilitar a compreensão, tornamos a simbologia utilizada por nós semelhante à utilizada nesses artigos \cite{768657,din}.
 
 \section{Representação de um solução}
 
@@ -154,7 +154,7 @@ Portanto, representaremos uma solução como uma sequência de aviões que descr
 
 Nosso algoritmo utiliza a biblioteca GLPK (GNU linear programming kit) para resolução das partes lineares do problema sendo tratado.
 
-Primeiramente, definimos o problema inteiro utilizando os dados lidos da entrada e as funções para criação de restrições disponibilizadas pela biblioteca GLPK. Após esse passo é possível utilizar o resolvedor interno do GLPK para resolver o problema inteiro, utilizando o método branch-and-cut. Essa característica foi requisitada na especificação do trabalho da disciplina, e também permite a comparação entre as soluções atingidas pelo algoritmo do GLPK e pelo método GRASP, além da comparação entre o desempenho na obtenção dessas.
+Primeiramente, definimos o problema inteiro utilizando os dados lidos da entrada e as funções para criação de restrições disponibilizadas pela biblioteca GLPK. Após esse passo é possível utilizar o \emph{solver} interno do GLPK para resolver o problema inteiro, utilizando o método branch-and-cut. Essa característica foi requisitada na especificação do trabalho da disciplina, e também permite a comparação entre as soluções atingidas pelo algoritmo do GLPK e pelo método GRASP, além da comparação entre o desempenho na obtenção dessas.
 
 Após isso, utilizamos a meta-heurística GRASP para criar soluções para a parte inteira do problema, ou seja, sequências de aviões que definem a ordem de chegada desses. Para cada solução inteira, modificamos as restrições do problema inteiro criado no primeiro passo de forma que ele respeite a ordem presente na sequência e torne-se, por consequência, linear. Cada programa linear gerado é então resolvido através do método simplex utilizando uma rotina da biblioteca GLPK.
 
@@ -162,19 +162,17 @@ Isso é feito para cada solução inteira gerada pelo método GRASP, tanto para 
 
 \section{GRASP}
 
+Decidimos utilizar esse método pois ele cria soluções, de forma aleatória, utilizando recursos e conhecimento sobre o problema, para, por exemplo, construir um custo heurístico da adição de um elemento a uma solução parcial e assim construir soluções mais efetivamente. Isso inicialmente pareceu ser eficiente e inteligente, e nossas conclusões podem ser vistas na seção \ref{Analise}.
+
 \subsection{Criação de soluções}
 
-%f(c), alpha reativo, possivelmente reactive GRASP.
-%dedução dos uij pela solução criada
-%citar o artigo sobre GRASP
-
-A utilização de uma meta-heurística como o GRASP tem como primeira etapa a definição dos conjuntos, funções e parâmetros necessários para a definição do problema combinatorial a ser resolvido. Utilizaremos os conjuntos, funções e parâmetros citados no artigo de Resende e Ribeiro \cite{Resende02greedyrandomized} para formalização do nosso método.
+A utilização de uma meta-heurística como o GRASP tem como primeira etapa a definição dos conjuntos, funções e parâmetros necessários para a definição do problema combinatório a ser resolvido. Utilizaremos os conjuntos, funções e parâmetros citados no artigo de Resende e Ribeiro \cite{Resende02greedyrandomized} para formalização do nosso método.
 
 Seguindo o artigo, os conjuntos $E$, $F \subseteq 2^{E}$ e a função $f : 2^{E} \rightarrow \mathbb{R}$ foram definidos. O conjunto $E$ de elementos que possivelmente fazem parte da solução é o conjunto de variáveis $\delta_{ij}$. O conjunto $F$ é o conjunto de todos os conjuntos de variáveis $\delta_{ij}$ tal que, caso as variáveis do conjunto sejam todas definidas como tendo valor 1, e as variáveis $\delta_{ij}$ que não estiverem no conjunto forem definidas como tendo valor 0, existe uma solução para o programa linear resultante. A função de custo $f$ mapeia um dado conjunto de variáveis $\delta_{ij}$ para o custo da solução mínima do programa linear em que as variáveis pertencentes ao conjunto são definidas como 1 e as demais como 0.
 
 Além disso, as meta-construções do algoritmo GRASP precisam ser instanciadas, e essas são a representação da solução e de cada elemento a ser adicionado a essa, a RCL (Restricted Candidate List), e o parâmetro $\alpha$, além dos parâmetros para controle do término do algoritmo, que aqui são $iter_{max}$ e $time_{max}$.
 
-A representação de uma solução será a ordem da chegada dos aviões, que por sua vez será representada por uma sequência de aviões, na qual um avião chega antes de outro se estiver mais à esquerda na sequência. Os elementos a serem adicionados, passo a passo, para a construção da solução, são os proprios aviões. Dado um parâmetro $\alpha$, em um determinado passo da construção da solução, nossa RCL é o conjunto de aviões que estão posicionados,  na sequência ideal, a até $\alpha$ posições da posição a ser adicionada na solução atual e que, se forem adicionados, não tornarão a solução inviável. E.g., dada a sequência ideal 1,2,6,4,5,3, o parâmetro $\alpha = 2$ e a solução atual ser 1,4, a RCL seria $\{6,2,5\}$ desde que a adição de qualquer um desses elementos à solução atual mantivesse-a viável.
+A representação de uma solução será a ordem da chegada dos aviões, que por sua vez será representada por uma sequência de aviões, na qual um avião chega antes de outro se estiver mais à esquerda na sequência. Os elementos a serem adicionados, passo a passo, para a construção da solução, são os próprios aviões. Dado um parâmetro $\alpha$, em um determinado passo da construção da solução, nossa RCL é o conjunto de aviões que estão posicionados,  na sequência ideal, a até $\alpha$ posições da posição a ser adicionada na solução atual e que, se forem adicionados, não tornarão a solução inviável. E.g., dada a sequência ideal 1,2,6,4,5,3, o parâmetro $\alpha = 2$ e a solução atual ser 1,4, a RCL seria $\{6,2,5\}$ desde que a adição de qualquer um desses elementos à solução atual mantivesse-a viável.
 
 A sequência ideal é definida inicialmente como a ordem de chegada dos aviões caso todos eles chegassem no seu tempo ideal. Se uma dada solução obtiver um custo menor do que a sequência ideal, a sequência que define a nova solução se tornará a sequência ideal.
 
@@ -196,21 +194,87 @@ Resta definirmos o que é a vizinhança de uma solução, o que é feito a segui
 
 Os testes realizados tiveram por objetivo testar a eficácia da nossa abordagem dadas diferentes sementes aleatórias e parâmetros $\alpha_{max}$. Testamos, é claro, esses parâmetros para cada caso de entrada.
 
-Para repetir os testes, basta compilar o arquivo avioes.c, ligá-lo à biblioteca GLPK criando um executável chamado Avioes.exe, compilar o arquivo experimentos.c, e executar o arquivo resultante da ligação e montagem do objeto proveninte da compilação de experimentos.c. As compilações podem ser realizadas com o compilador gcc. A ligação e montagem dependem do sistema operacional utilizado, além da localização da biblioteca GLPK.
+Para repetir os testes, basta compilar o arquivo avioes.c, ligá-lo à biblioteca GLPK criando um executável chamado Avioes.exe, compilar o arquivo experimentos.c, e executar o arquivo resultante da ligação e montagem do objeto proveniente da compilação de experimentos.c. As compilações podem ser realizadas com o compilador gcc. A ligação e montagem dependem do sistema operacional utilizado, além da localização da biblioteca GLPK.
+
+Os resultados serão concatenados ao conteúdo do arquivo out.txt no formato de uma tabela no estilo \LaTeX com o mesmo formato da tabela \ref{tab}, porém sem o desvio para a solução ótima.
 
 \section{Resultados}
 
-Em todos os testes o limite de iterações do método foi 100 e o limite de tempo foi de 20 segundos. Vários casos passaram de 20 segundos pois o limite de tempo so é verificado ao final de cada iteração, que pode ser longa.
+Em todos os testes o limite de iterações do método foi 100 e o limite de tempo foi de 20 segundos. Vários casos passaram de 20 segundos pois o limite de tempo só é verificado ao final de cada iteração, que pode ser longa.
 
-%tabela com resultados
+\begin{table}
 
-\section{Análise}
+\centering
 
-Como pode-se perceber, a abordagem gulosa é extremamente eficaz na resolução desse problema, sendo que a utilização de $\alpha = 0$ na geração de uma solução gera a melhor solução ou um vizinho próximo dessa em 7 dos 8 casos de entrada testados. No caso airland2, a solução inicial gera uma solução com custo de 1500, porém com algumas iterações do método, utilizando um $\alpha$ variável, a melhor solução, com custo de 1480, é encontrada.
+\caption{Tabela de resultados dos experimentos}
 
-Pode-se concluir que o método é bastante afetado pela escolha da função que determina o custo incremental da adição de um dado elemento à solução que está sendo gerada, ou seja, a parte gulosa do algoritmo. No caso desse trabalho, a função, que determina esse custo pela posição do avião na sequência ideal, parece ter sido bem escolhida, o que gerou soluções ótimas em todos os casos.
+\begin{tabular}{|c|c|c|c|c|c|}
 
-Além disso, o parâmetro $\alpha$ é vital, o que nos levou a decidir não utilizar o método GRASP padrão, mas uma variação do Reactive GRASP, que decide o valor de $\alpha_{max}$ de forma aleatória com probabilidade uniforme para todos os $\alpha$ entre 0 e $\alpha_{max}-1$. Essa escolha também parece ter ajudado no sucesso da abordagem.
+\hline % este comando coloca uma linha na tabela
+
+Caso & $\alpha_{max}$ & Semente & Solução & Tempo utilizado (s) & Desvio para solução ótima (\%)  \\
+
+\hline
+airland1 & 1 & 14766 & 700 & 1 & 0 \\ 
+airland1 & 2 & 20024 & 700 & 2 & 0 \\ 
+airland1 & 3 & 19673 & 700 & 1 & 0 \\ 
+airland1 & 4 & 23915 & 700 & 2 & 0 \\ 
+airland1 & 5 & 710 & 700 & 2 & 0 \\ 
+\hline
+airland2 & 1 & 22574 & 1.480 & 5 & 0 \\ 
+airland2 & 2 & 26494 & 1.480 & 9 & 0 \\ 
+airland2 & 3 & 11040 & 1.480 & 8 & 0 \\ 
+airland2 & 4 & 27382 & 1.480 & 9 & 0 \\ 
+airland2 & 5 & 11503 & 1.500 & 10 & 1.33 \\ 
+\hline
+airland3 & 1 & 15751 & 820 & 18 & 0 \\ 
+airland3 & 2 & 14185 & 820 & 21 & 0 \\ 
+airland3 & 3 & 31028 & 820 & 21 & 0 \\ 
+airland3 & 4 & 20012 & 820 & 21 & 0 \\ 
+airland3 & 5 & 17962 & 820 & 21 & 0 \\ 
+\hline
+airland4 & 1 & 26543 & 2.520 & 18 & 0 \\ 
+airland4 & 2 & 23571 & 2.520 & 21 & 0 \\ 
+airland4 & 3 & 21435 & 2.520 & 21 & 0 \\ 
+airland4 & 4 & 3896 & 2.520 & 21 & 0 \\ 
+airland4 & 5 & 21136 & 2.520 & 21 & 0 \\ 
+\hline
+airland5 & 1 & 20362 & 3.100 & 21 & 0 \\ 
+airland5 & 2 & 19016 & 3.100 & 21 & 0 \\ 
+airland5 & 3 & 28928 & 3.100 & 21 & 0 \\ 
+airland5 & 4 & 13363 & 3.100 & 21 & 0 \\ 
+airland5 & 5 & 4087 & 3.100 & 21 & 0 \\ 
+\hline
+airland6 & 1 & 27207 & 24.442 & 1 & 0 \\ 
+airland6 & 2 & 14705 & 24.442 & 1 & 0 \\ 
+airland6 & 3 & 31960 & 24.442 & 2 & 0 \\ 
+airland6 & 4 & 32355 & 24.442 & 1 & 0 \\ 
+airland6 & 5 & 15148 & 24.442 & 1 & 0 \\ 
+\hline
+airland7 & 1 & 4734 & 1.550 & 12 & 0 \\ 
+airland7 & 2 & 11699 & 1.550 & 13 & 0 \\ 
+airland7 & 3 & 23048 & 1.550 & 13 & 0 \\ 
+airland7 & 4 & 30431 & 1.550 & 14 & 0 \\ 
+airland7 & 5 & 10183 & 1.550 & 14 & 0 \\ 
+\hline
+airland8 & 1 & 30714 & 1.950 & 21 & 0 \\ 
+airland8 & 2 & 13072 & 1.950 & 33 & 0 \\ 
+airland8 & 3 & 16746 & 1.950 & 40 & 0 \\ 
+airland8 & 4 & 20341 & 1.950 & 21 & 0 \\ 
+airland8 & 5 & 21053 & 1.950 & 28 & 0 \\ 
+\hline
+
+\end{tabular}
+\label{tab}
+\end{table} 
+
+\section{Análise} \label{Analise}
+
+Como pode-se perceber, a abordagem gulosa é extremamente eficaz na resolução desse problema, sendo que a utilização de $\alpha = 0$ na geração de uma solução gera a melhor solução ou um vizinho próximo dessa em 7 dos 8 casos de entrada testados. No caso airland2, a solução inicial gera, por busca local, uma solução com custo de 1500, porém com algumas iterações do método, utilizando um $\alpha$ variável, a melhor solução, com custo de 1480, é quase sempre encontrada. A única exceção ocorre quando $\alpha_{max}$ possui valor 5 (ou maior), pois, como airland2 considera 15 aviões no total, a criação de soluções fica muito próxima da geração aleatória, o que mostra-se menos efetivo. Com mais iterações (200), entretanto, o resultado volta a ser 1480, visto que, com menor probabilidade de gerar uma solução boa, mais tentativas são necessárias para isso.
+
+Pode-se concluir que o método é bastante afetado pela escolha da função que determina o custo incremental da adição de um dado elemento à solução que está sendo gerada, ou seja, a parte gulosa do algoritmo. No caso desse trabalho, a função, que determina esse custo pela posição do avião na sequência ideal, parece ter sido bem escolhida, o que gerou soluções ótimas em quase todos os casos.
+
+Além disso, o parâmetro $\alpha$ é vital, o que nos levou a decidir não utilizar o método GRASP padrão, mas uma variação do Reactive GRASP, que decide o valor de $\alpha$ de forma aleatória com probabilidade uniforme para todos os $\alpha$ entre 0 e $\alpha_{max}$. Essa escolha também parece ter ajudado no sucesso da abordagem.
 
 \bibliography{relatorio}{}
 \bibliographystyle{plain}

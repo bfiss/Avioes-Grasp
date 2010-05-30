@@ -274,7 +274,7 @@ void printResult(glp_prob * Prob, FILE * out) {
 	
 	if( simpleOutput ) {
 		time(&final);
-		fprintf(out,"%lf %lf\n",glp_get_obj_val(Prob),difftime(final,initial));
+		fprintf(out,"%i & %i \\\\ \n",(int)glp_get_obj_val(Prob),(int)difftime(final,initial));
 		return;
 	}
 	

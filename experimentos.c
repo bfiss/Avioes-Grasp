@@ -23,7 +23,7 @@ int main(void) {
 			randomSeed = rand();
 			maxAlpha = j%5 + 1;
 			file = fopen(out,"a");
-			fprintf(file,"%i 100 20 %i ",maxAlpha,randomSeed);
+			fprintf(file,"airland%i & %i & %i & ",i,maxAlpha,randomSeed);
 			fclose(file);
 			sprintf(param,"%s %i 100 20 %i 1",out,maxAlpha,randomSeed);
 			sprintf(command,"%s %s < %s",exec,param,in);

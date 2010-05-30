@@ -11,5 +11,5 @@
 \contentsline {chapter}{\numberline {3}Experimentos}{7}
 \contentsline {section}{\numberline {3.1}Configura\IeC {\c c}\IeC {\~o}es}{7}
 \contentsline {section}{\numberline {3.2}Resultados}{7}
-\contentsline {section}{\numberline {3.3}An\IeC {\'a}lise}{7}
-\contentsline {chapter}{Refer\^encias Bibliogr\'aficas}{8}
+\contentsline {section}{\numberline {3.3}An\IeC {\'a}lise}{9}
+\contentsline {chapter}{Refer\^encias Bibliogr\'aficas}{10}
