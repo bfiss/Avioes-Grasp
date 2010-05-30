@@ -144,7 +144,7 @@ A formulação do programa inteiro foi realizada pelos autores antes da leitura 
 
 O programa inteiro que descreve o problema aqui tratado é misto, possuindo variáveis reais além de inteiras. Como o objetivo desse trabalho é aplicar uma meta-heurística a um problema inteiro, separamos a solução em duas partes, uma inteira e outra real.
 
-A parte inteira da solução é a que contém as variáveis $\delta_{ij}$, que descrevem, em conjunto, a ordem de chegada dos aviões. O caminho inverso também é válido, ou seja, uma determinada ordem de chegada dos aviões descreve completamente as variáveis $\delta_{ij}$. Já a parte linear são as demais variáveis.
+A parte inteira da solução é a que contém as variáveis $\delta_{ij}$, que descrevem, em conjunto, a ordem de chegada dos aviões. O caminho inverso também é válido, ou seja, uma determinada ordem de chegada dos aviões descreve completamente as variáveis $\delta_{ij}$. Já a parte linear contém as demais variáveis.
 
 Portanto, representaremos uma solução como uma sequência de aviões que descreve a ordem de chegada desses. Após obter a solução inteira do problema, basta resolver o programa linear restante para obter a solução completa do problema.
 
@@ -168,27 +168,49 @@ Isso é feito para cada solução inteira gerada pelo método GRASP, tanto para 
 %dedução dos uij pela solução criada
 %citar o artigo sobre GRASP
 
+A utilização de uma meta-heurística como o GRASP tem como primeira etapa a definição dos conjuntos, funções e parâmetros necessários para a definição do problema combinatorial a ser resolvido. Utilizaremos os conjuntos, funções e parâmetros citados no artigo de Resende e Ribeiro \cite{Resende02greedyrandomized} para formalização do nosso método.
 
+Seguindo o artigo, os conjuntos $E$, $F \subseteq 2^{E}$ e a função $f : 2^{E} \rightarrow \mathbb{R}$ foram definidos. O conjunto $E$ de elementos que possivelmente fazem parte da solução é o conjunto de variáveis $\delta_{ij}$. O conjunto $F$ é o conjunto de todos os conjuntos de variáveis $\delta_{ij}$ tal que, caso as variáveis do conjunto sejam todas definidas como tendo valor 1, e as variáveis $\delta_{ij}$ que não estiverem no conjunto forem definidas como tendo valor 0, existe uma solução para o programa linear resultante. A função de custo $f$ mapeia um dado conjunto de variáveis $\delta_{ij}$ para o custo da solução mínima do programa linear em que as variáveis pertencentes ao conjunto são definidas como 1 e as demais como 0.
 
-\cite{Resende02greedyrandomized}.
+Além disso, as meta-construções do algoritmo GRASP precisam ser instanciadas, e essas são a representação da solução e de cada elemento a ser adicionado a essa, a RCL (Restricted Candidate List), e o parâmetro $\alpha$, além dos parâmetros para controle do término do algoritmo, que aqui são $iter_{max}$ e $time_{max}$.
+
+A representação de uma solução será a ordem da chegada dos aviões, que por sua vez será representada por uma sequência de aviões, na qual um avião chega antes de outro se estiver mais à esquerda na sequência. Os elementos a serem adicionados, passo a passo, para a construção da solução, são os proprios aviões. Dado um parâmetro $\alpha$, em um determinado passo da construção da solução, nossa RCL é o conjunto de aviões que estão posicionados,  na sequência ideal, a até $\alpha$ posições da posição a ser adicionada na solução atual e que, se forem adicionados, não tornarão a solução inviável. E.g., dada a sequência ideal 1,2,6,4,5,3, o parâmetro $\alpha = 2$ e a solução atual ser 1,4, a RCL seria $\{6,2,5\}$ desde que a adição de qualquer um desses elementos à solução atual mantivesse-a viável.
+
+A sequência ideal é definida inicialmente como a ordem de chegada dos aviões caso todos eles chegassem no seu tempo ideal. Se uma dada solução obtiver um custo menor do que a sequência ideal, a sequência que define a nova solução se tornará a sequência ideal.
+
+Para efetivamente testar a sequência ideal, nossa primeira iteração utiliza $\alpha = 0$, ou seja, uma construção totalmente gulosa.
+
+Após a realização de testes e do estudo da variação Reactive GRASP da meta-heurística GRASP, decidimos implementar parte das variações no nosso algoritmo. A variação implementada é simples: o parâmetro $\alpha$ é, a cada iteração, sorteado aleatoriamente entre 0 e um novo parâmetro, chamado $\alpha_{max}$.
+
+Os parâmetros $iter_{max}$ e $time_{max}$ definem, respectivamente, o número máximo de iterações da e o tempo máximo em segundos gastos na heurística GRASP.
 
 \subsection{Vizinhança e busca local}
 
-%definição de vizinhança. busca local de primeiro incremento
+A busca local pode ser feita de duas formas: com o primeiro incremento ou com o melhor incremento. Decidimos utilizar o primeiro incremento, ou seja, pesquisamos a vizinhança de uma dada solução em busca de uma solução melhor e, quando encontramos a primeira, passamos a considerar essa nova solução encontrada como a solução atual, buscando agora uma solução melhor na vizinhança da atual.
+
+Resta definirmos o que é a vizinhança de uma solução, o que é feito a seguir: uma dada solução, representada por uma sequência de aviões na qual dois aviões adjacentes foram trocados, um sendo colocado no lugar do outro, e nenhuma outra modificação ocorrendo, é vizinha da solução original, sem a troca dos aviões. A vizinhança de uma dada solução é simplesmente o conjunto de todos os vizinhos dessa.
 
 \chapter{Experimentos}
 
 \section{Configurações}
 
-%como foram realizados, e que parâmetros foram testados.
+Os testes realizados tiveram por objetivo testar a eficácia da nossa abordagem dadas diferentes sementes aleatórias e parâmetros $\alpha_{max}$. Testamos, é claro, esses parâmetros para cada caso de entrada.
+
+Para repetir os testes, basta compilar o arquivo avioes.c, ligá-lo à biblioteca GLPK criando um executável chamado Avioes.exe, compilar o arquivo experimentos.c, e executar o arquivo resultante da ligação e montagem do objeto proveninte da compilação de experimentos.c. As compilações podem ser realizadas com o compilador gcc. A ligação e montagem dependem do sistema operacional utilizado, além da localização da biblioteca GLPK.
 
 \section{Resultados}
+
+Em todos os testes o limite de iterações do método foi 100 e o limite de tempo foi de 20 segundos. Vários casos passaram de 20 segundos pois o limite de tempo so é verificado ao final de cada iteração, que pode ser longa.
 
 %tabela com resultados
 
 \section{Análise}
 
-%porque tivemos esses resultados
+Como pode-se perceber, a abordagem gulosa é extremamente eficaz na resolução desse problema, sendo que a utilização de $\alpha = 0$ na geração de uma solução gera a melhor solução ou um vizinho próximo dessa em 7 dos 8 casos de entrada testados. No caso airland2, a solução inicial gera uma solução com custo de 1500, porém com algumas iterações do método, utilizando um $\alpha$ variável, a melhor solução, com custo de 1480, é encontrada.
+
+Pode-se concluir que o método é bastante afetado pela escolha da função que determina o custo incremental da adição de um dado elemento à solução que está sendo gerada, ou seja, a parte gulosa do algoritmo. No caso desse trabalho, a função, que determina esse custo pela posição do avião na sequência ideal, parece ter sido bem escolhida, o que gerou soluções ótimas em todos os casos.
+
+Além disso, o parâmetro $\alpha$ é vital, o que nos levou a decidir não utilizar o método GRASP padrão, mas uma variação do Reactive GRASP, que decide o valor de $\alpha_{max}$ de forma aleatória com probabilidade uniforme para todos os $\alpha$ entre 0 e $\alpha_{max}-1$. Essa escolha também parece ter ajudado no sucesso da abordagem.
 
 \bibliography{relatorio}{}
 \bibliographystyle{plain}

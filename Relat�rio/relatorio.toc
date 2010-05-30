@@ -7,9 +7,9 @@
 \contentsline {section}{\numberline {2.1}Id\IeC {\'e}ia geral}{5}
 \contentsline {section}{\numberline {2.2}GRASP}{5}
 \contentsline {subsection}{\numberline {2.2.1}Cria\IeC {\c c}\IeC {\~a}o de solu\IeC {\c c}\IeC {\~o}es}{5}
-\contentsline {subsection}{\numberline {2.2.2}Vizinhan\IeC {\c c}a e busca local}{5}
-\contentsline {chapter}{\numberline {3}Experimentos}{6}
-\contentsline {section}{\numberline {3.1}Configura\IeC {\c c}\IeC {\~o}es}{6}
-\contentsline {section}{\numberline {3.2}Resultados}{6}
-\contentsline {section}{\numberline {3.3}An\IeC {\'a}lise}{6}
-\contentsline {chapter}{Refer\^encias Bibliogr\'aficas}{7}
+\contentsline {subsection}{\numberline {2.2.2}Vizinhan\IeC {\c c}a e busca local}{6}
+\contentsline {chapter}{\numberline {3}Experimentos}{7}
+\contentsline {section}{\numberline {3.1}Configura\IeC {\c c}\IeC {\~o}es}{7}
+\contentsline {section}{\numberline {3.2}Resultados}{7}
+\contentsline {section}{\numberline {3.3}An\IeC {\'a}lise}{7}
+\contentsline {chapter}{Refer\^encias Bibliogr\'aficas}{8}
