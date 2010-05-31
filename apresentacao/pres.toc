@@ -1,0 +1,13 @@
+\beamer@endinputifotherversion {3.07pt}
+\select@language {brazil}
+\beamer@sectionintoc {1}{Defini\IeC {\c c}\IeC {\~a}o do problema}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Formaliza\IeC {\c c}\IeC {\~a}o}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Descri\IeC {\c c}\IeC {\~a}o como programa inteiro}{11}{0}{1}
+\beamer@subsectionintoc {1}{3}{Representa\IeC {\c c}\IeC {\~a}o de uma solu\IeC {\c c}\IeC {\~a}o}{16}{0}{1}
+\beamer@sectionintoc {2}{GRASP}{21}{0}{2}
+\beamer@subsectionintoc {2}{1}{Algoritmo}{25}{0}{2}
+\beamer@subsectionintoc {2}{2}{Gera\IeC {\c c}\IeC {\~a}o de solu\IeC {\c c}\IeC {\~o}es}{26}{0}{2}
+\beamer@subsectionintoc {2}{3}{Busca local}{39}{0}{2}
+\beamer@sectionintoc {3}{Experimentos}{42}{0}{3}
+\beamer@subsectionintoc {3}{1}{Resultados}{42}{0}{3}
+\beamer@subsectionintoc {3}{2}{An\IeC {\'a}lise}{50}{0}{3}

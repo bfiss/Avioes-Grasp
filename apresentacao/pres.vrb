@@ -1,0 +1,14 @@
+\frametitle {Função geradora de soluções}\par \begin{lstlisting}
+
+procedimento gerarSolucaoInicial(alpha, semente)
+    solucao = vazio;
+    enquanto naoPronta(solucao) faca
+        RCL = gerarRCL(alpha);
+        elemento = sortear(RCL,semente);
+        adicionarElemento(solucao,elemento);
+    fim-enquanto;
+    retornar solucao;
+fim-procedimento;
+
+\end{lstlisting}
+

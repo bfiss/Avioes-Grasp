@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2010.5.28)  29 MAY 2010 23:06
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2010.5.28)  30 MAY 2010 18:12
 entering extended mode
-**C:/Users/Bruno/Desktop/Trabalhos/Avioes-Grasp/Relatório/relatorio.tex
-(C:/Users/Bruno/Desktop/Trabalhos/Avioes-Grasp/Relatório/relatorio.tex
+**C:/Users/Bruno/Desktop/Trabalhos/Avioes-Grasp/Relatorio/relatorio.tex
+(C:/Users/Bruno/Desktop/Trabalhos/Avioes-Grasp/Relatorio/relatorio.tex
 LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
 rman, ngerman, german-x-2009-06-19, ngerman-x-2009-06-19, french, portuguese, l
@@ -457,7 +457,7 @@ File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
 File: ot1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding OT1 on input line 43.
 )))
-(C:\Users\Bruno\Desktop\Trabalhos\Avioes-Grasp\Relatório\relatorio.aux)
+(C:\Users\Bruno\Desktop\Trabalhos\Avioes-Grasp\Relatorio\relatorio.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 92.
 LaTeX Font Info:    ... okay on input line 92.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 92.
@@ -561,7 +561,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20.74> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <20.74> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 96.
 
-(C:\Users\Bruno\Desktop\Trabalhos\Avioes-Grasp\Relatório\relatorio.toc
+(C:\Users\Bruno\Desktop\Trabalhos\Avioes-Grasp\Relatorio\relatorio.toc
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 2.
 )
@@ -584,7 +584,7 @@ Cap\'{\i }tulo 2.
 Cap\'{\i }tulo 3.
 [7
 
-] [8] (C:\Users\Bruno\Desktop\Trabalhos\Avioes-Grasp\Relatório\relatorio.bbl
+] [8] (C:\Users\Bruno\Desktop\Trabalhos\Avioes-Grasp\Relatorio\relatorio.bbl
 [9])
 +-------------------------------------------------------------------+
 | Comentario, sugestao ou critica sobre o abnTeX? Entre em contato: |
@@ -592,7 +592,7 @@ Cap\'{\i }tulo 3.
 +-------------------------------------------------------------------+
 [10
 
-] (C:\Users\Bruno\Desktop\Trabalhos\Avioes-Grasp\Relatório\relatorio.aux) ) 
+] (C:\Users\Bruno\Desktop\Trabalhos\Avioes-Grasp\Relatorio\relatorio.aux) ) 
 Here is how much of TeX's memory you used:
  7598 strings out of 495257
  100423 string characters out of 3179700
@@ -612,7 +612,7 @@ gram Files/MiKTeX 2.8/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX
  2.8/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1
 /urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/urw/times/utmri8
 a.pfb>
-Output written on relatorio.pdf (10 pages, 115511 bytes).
+Output written on relatorio.pdf (10 pages, 115557 bytes).
 PDF statistics:
  76 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
